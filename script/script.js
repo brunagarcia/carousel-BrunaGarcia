@@ -21,14 +21,12 @@ const changeImages = (control) => {
         tempNext = currentImage.previousElementSibling;
         currentImage.previousElementSibling.classList.add("carousel-item--active");
     } else if (control.screenX > 250) {
-        counter = +1;
         currentImage.classList.remove("carousel-item--active");
-        tempNext = currentImage.nextElementSibling
+        tempNext = currentImage.nextElementSibling;
         currentImage.nextElementSibling.classList.add("carousel-item--active");
     }
 
     //Re-assigning currentImage to the next sibling.
-
     !tempNext ?
         currentImage = carouselWrapper[0].firstElementChild :
         currentImage = tempNext;
