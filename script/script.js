@@ -7,41 +7,33 @@ const nextControl = document.querySelectorAll(".right-arrow");
 const prevControl = document.querySelectorAll(".left-arrow");
 
 let currentImage = carouselWrapper[0].firstElementChild;
-
-console.log(carouselWrapper[0].children.length)
+let tempNext;
 
 //Logic - All images are contained in a li tag, and they have all absolute
 //positioning, so my idea is to change the display mode of the elements based
 //on their position as children of my carouselWrapper.
 
 
-
-
 const changeImages = (control) => {
-    let tempNext = "";
+    if (control.screenX < 250) { // LEFT
+        currentImage.previousElementSibling !== null ?
+        tempNext = currentImage.previousElementSibling :
+        currentImage.classList.remove("carousel-item--active")
+        tempNext.classList.add("carousel-item--active");
 
-    if (control.screenX < 250) {
-        //if the current image = first element, go back to the last one.
-        tempNext === carouselWrapper[0].lastElementChild ?
-        currentImage = carouselWrapper[0].firstElementChild :
-        currentImage = tempNext;
-        
-        currentImage.classList.remove("carousel-item--active");
-        tempNext = currentImage.previousElementSibling;
-        currentImage.previousElementSibling.classList.add("carousel-item--active");
-    } else if (control.screenX > 250) {
-        tempNext === carouselWrapper[0].firstElementChild ?
-        currentImage = carouselWrapper[0].lastElementChild :
-        currentImage = tempNext;
+        currentImage = tempNext
 
-        currentImage.classList.remove("carousel-item--active");
-        tempNext = currentImage.nextElementSibling;
-        currentImage.nextElementSibling.classList.add("carousel-item--active");
+    } else if (control.screenX > 250) { //RIGHT
+        currentImage.nextElementSibling !== null ?
+        tempNext = currentImage.nextElementSibling :
+        currentImage.classList.remove("carousel-item--active")
+        tempNext.classList.add("carousel-item--active");
+
+        currentImage = tempNext
     }
+    
 
-    //Re-assigning currentImage to the next sibling.
-    console.log(tempNext)
-    console.log(currentImage)
+
 }
 
 // Event Listeners on arrows/control
